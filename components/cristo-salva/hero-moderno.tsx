@@ -1,10 +1,10 @@
-"use client"
+"use client";
 
-import type React from "react"
+import type React from "react";
 
-import { motion } from "framer-motion"
-import { Montserrat, Playfair_Display } from "next/font/google"
-import { cn } from "@/lib/utils"
+import { motion } from "framer-motion";
+import { Montserrat, Playfair_Display } from "next/font/google";
+import { cn } from "@/lib/utils";
 import {
   LucideChevronDown,
   LucideCross,
@@ -23,19 +23,19 @@ import {
   LucideFacebook,
   LucideYoutube,
   Camera,
-} from "lucide-react"
-import { useState } from "react"
-import PhotoGallery from "./photo-gallery"
+} from "lucide-react";
+import { useState } from "react";
+import PhotoGallery from "./photo-gallery";
 
 const montserrat = Montserrat({
   subsets: ["latin"],
   variable: "--font-montserrat",
-})
+});
 
 const playfair = Playfair_Display({
   subsets: ["latin"],
   variable: "--font-playfair",
-})
+});
 
 function LightRay({
   className,
@@ -45,12 +45,12 @@ function LightRay({
   rotate = 0,
   gradient = "from-white/[0.08]",
 }: {
-  className?: string
-  delay?: number
-  width?: number
-  height?: number
-  rotate?: number
-  gradient?: string
+  className?: string;
+  delay?: number;
+  width?: number;
+  height?: number;
+  rotate?: number;
+  gradient?: string;
 }) {
   return (
     <motion.div
@@ -95,12 +95,12 @@ function LightRay({
             "backdrop-blur-[2px] border border-white/[0.1]",
             "shadow-[0_8px_32px_0_rgba(255,255,255,0.05)]",
             "after:absolute after:inset-0 after:rounded-full",
-            "after:bg-[radial-gradient(circle_at_50%_50%,rgba(255,255,255,0.15),transparent_70%)]",
+            "after:bg-[radial-gradient(circle_at_50%_50%,rgba(255,255,255,0.15),transparent_70%)]"
           )}
         />
       </motion.div>
     </motion.div>
-  )
+  );
 }
 
 function ServiceCard({
@@ -111,12 +111,12 @@ function ServiceCard({
   time,
   location,
 }: {
-  icon: React.ElementType
-  title: string
-  description: string
-  day: string
-  time: string
-  location: string
+  icon: React.ElementType;
+  title: string;
+  description: string;
+  day: string;
+  time: string;
+  location: string;
 }) {
   return (
     <motion.div
@@ -147,7 +147,7 @@ function ServiceCard({
         </div>
       </div>
     </motion.div>
-  )
+  );
 }
 
 function AboutCard({
@@ -155,9 +155,9 @@ function AboutCard({
   title,
   description,
 }: {
-  icon: React.ElementType
-  title: string
-  description: string
+  icon: React.ElementType;
+  title: string;
+  description: string;
 }) {
   return (
     <motion.div
@@ -174,11 +174,13 @@ function AboutCard({
       </div>
       <p className="text-white/60">{description}</p>
     </motion.div>
-  )
+  );
 }
 
 export default function HeroModerno() {
-  const [activeSection, setActiveSection] = useState<"none" | "services" | "about" | "gallery">("none")
+  const [activeSection, setActiveSection] = useState<
+    "none" | "services" | "about" | "gallery"
+  >("none");
 
   const fadeUpVariants = {
     hidden: { opacity: 0, y: 30 },
@@ -191,7 +193,7 @@ export default function HeroModerno() {
         ease: [0.25, 0.4, 0.25, 1],
       },
     }),
-  }
+  };
 
   const sectionVariants = {
     hidden: {
@@ -222,15 +224,15 @@ export default function HeroModerno() {
         ease: "easeIn",
       },
     },
-  }
+  };
 
   const toggleSection = (section: "services" | "about" | "gallery") => {
     if (activeSection === section) {
-      setActiveSection("none")
+      setActiveSection("none");
     } else {
-      setActiveSection(section)
+      setActiveSection(section);
     }
-  }
+  };
 
   return (
     <div className="relative min-h-screen w-full flex flex-col items-center justify-center overflow-hidden bg-[#0a0a0f] dark">
@@ -295,15 +297,22 @@ export default function HeroModerno() {
             <div className="flex items-center justify-center w-5 h-5">
               <LucideCross className="w-4 h-4 text-amber-300" />
             </div>
-            <span className="text-sm text-white/60 tracking-wide">Iglesia Evangélica</span>
+            <span className="text-sm text-white/60 tracking-wide">
+              Iglesia Evangélica
+            </span>
           </motion.div>
 
-          <motion.div custom={1} variants={fadeUpVariants} initial="hidden" animate="visible">
+          <motion.div
+            custom={1}
+            variants={fadeUpVariants}
+            initial="hidden"
+            animate="visible"
+          >
             <h1 className="text-4xl sm:text-6xl md:text-8xl font-bold mb-6 md:mb-8 tracking-tight">
               <span
                 className={cn(
                   "bg-clip-text text-transparent bg-gradient-to-b from-white to-white/80",
-                  montserrat.className,
+                  montserrat.className
                 )}
               >
                 Cristo
@@ -312,7 +321,7 @@ export default function HeroModerno() {
               <span
                 className={cn(
                   "bg-clip-text text-transparent bg-gradient-to-r from-amber-300 via-white/90 to-purple-300",
-                  playfair.className,
+                  playfair.className
                 )}
               >
                 Salva
@@ -321,7 +330,7 @@ export default function HeroModerno() {
                 <span
                   className={cn(
                     "absolute right-0 md:right-4 -top-2 md:-top-4 text-2xl md:text-3xl font-light text-white/70 transform rotate-[-8deg] border-t-2 border-white/20 pt-1 px-2",
-                    montserrat.className,
+                    montserrat.className
                   )}
                 >
                   Pedraza
@@ -330,13 +339,24 @@ export default function HeroModerno() {
             </h1>
           </motion.div>
 
-          <motion.div custom={2} variants={fadeUpVariants} initial="hidden" animate="visible">
+          <motion.div
+            custom={2}
+            variants={fadeUpVariants}
+            initial="hidden"
+            animate="visible"
+          >
             <p className="text-base sm:text-lg md:text-xl text-white/40 mb-8 leading-relaxed font-light tracking-wide max-w-xl mx-auto px-4">
-              Compartiendo el mensaje de esperanza y salvación a través de la fe en Cristo Jesús.
+              Compartiendo el mensaje de esperanza y salvación a través de la fe
+              en Cristo Jesús.
             </p>
           </motion.div>
 
-          <motion.div custom={3} variants={fadeUpVariants} initial="hidden" animate="visible">
+          <motion.div
+            custom={3}
+            variants={fadeUpVariants}
+            initial="hidden"
+            animate="visible"
+          >
             <div className="flex flex-col sm:flex-row gap-4 justify-center flex-wrap">
               <button
                 onClick={() => toggleSection("services")}
@@ -422,7 +442,7 @@ export default function HeroModerno() {
                 description="Servicio principal de adoración y predicación de la Palabra de Dios para toda la familia."
                 day="Domingo"
                 time="10:00 AM - 12:00 PM"
-                location="Santuario Principal"
+                location="Salón Principal"
               />
               <ServiceCard
                 icon={LucideUsers}
@@ -430,7 +450,7 @@ export default function HeroModerno() {
                 description="Profundizamos en las escrituras para crecer en conocimiento y fe."
                 day="Miércoles"
                 time="7:00 PM - 8:30 PM"
-                location="Salón Comunitario"
+                location="Salón Principal"
               />
               <ServiceCard
                 icon={LucideMusic}
@@ -438,7 +458,7 @@ export default function HeroModerno() {
                 description="Ensayo del equipo de música y adoración para los servicios."
                 day="Viernes"
                 time="6:00 PM - 8:00 PM"
-                location="Santuario Principal"
+                location="Salón Principal"
               />
               <ServiceCard
                 icon={LucideHeart}
@@ -446,7 +466,7 @@ export default function HeroModerno() {
                 description="Reunión especial para jóvenes con actividades, devocionales y compañerismo."
                 day="Sábado"
                 time="5:00 PM - 7:30 PM"
-                location="Salón Juvenil"
+                location="Salón Principal"
               />
             </div>
           </motion.div>
@@ -474,12 +494,14 @@ export default function HeroModerno() {
             exit="exit"
             className="w-full max-w-4xl mx-auto mt-12"
           >
-            <h2 className="text-2xl md:text-3xl font-bold text-white mb-6 text-center">Conoce Más Sobre Nosotros</h2>
+            <h2 className="text-2xl md:text-3xl font-bold text-white mb-6 text-center">
+              Conoce Más Sobre Nosotros
+            </h2>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
               <AboutCard
                 icon={LucideBook}
                 title="Nuestra Misión"
-                description="Llevar el mensaje de salvación a través de Jesucristo, formando discípulos comprometidos con la fe y el servicio a la comunidad."
+                description="Llevar el mensaje de salvación a través de Jesucristo, formando discípulos comprometidos con la fe y el servicio a Dios."
               />
               <AboutCard
                 icon={LucideHeart}
@@ -489,19 +511,23 @@ export default function HeroModerno() {
             </div>
 
             <div className="bg-white/[0.03] backdrop-blur-sm border border-white/10 rounded-xl p-6">
-              <h3 className="text-xl font-medium text-white mb-4">Contáctanos</h3>
+              <h3 className="text-xl font-medium text-white mb-4">
+                Contáctanos
+              </h3>
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 <div className="flex items-center gap-3">
                   <div className="w-8 h-8 rounded-full bg-white/10 flex items-center justify-center">
                     <LucideMapPinned className="w-4 h-4 text-white/70" />
                   </div>
-                  <span className="text-white/60">Av. Principal #123, Ciudad</span>
+                  <span className="text-white/60">
+                    Av. #2 con calle #2, Ciudad Bolivia
+                  </span>
                 </div>
                 <div className="flex items-center gap-3">
                   <div className="w-8 h-8 rounded-full bg-white/10 flex items-center justify-center">
                     <LucidePhone className="w-4 h-4 text-white/70" />
                   </div>
-                  <span className="text-white/60">(123) 456-7890</span>
+                  <span className="text-white/60">(0412) 453-4867</span>
                 </div>
                 <div className="flex items-center gap-3">
                   <div className="w-8 h-8 rounded-full bg-white/10 flex items-center justify-center">
@@ -528,25 +554,7 @@ export default function HeroModerno() {
         )}
       </div>
 
-      {activeSection === "none" && (
-        <motion.div
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ delay: 2, duration: 1 }}
-          className="absolute bottom-8 left-1/2 transform -translate-x-1/2 flex flex-col items-center"
-        >
-          <span className="text-white/40 text-sm mb-2">Descubre</span>
-          <motion.div
-            animate={{ y: [0, 10, 0] }}
-            transition={{ duration: 2, repeat: Number.POSITIVE_INFINITY, ease: "easeInOut" }}
-          >
-            <LucideChevronDown className="w-6 h-6 text-white/40" />
-          </motion.div>
-        </motion.div>
-      )}
-
       <div className="absolute inset-0 bg-gradient-to-t from-[#0a0a0f] via-transparent to-[#0a0a0f]/80 pointer-events-none" />
     </div>
-  )
+  );
 }
-

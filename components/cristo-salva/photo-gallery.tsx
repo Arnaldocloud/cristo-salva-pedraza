@@ -1,16 +1,29 @@
-"use client"
+"use client";
 
-import { useState, useRef, useEffect } from "react"
-import { motion, AnimatePresence, useMotionValue, useSpring } from "framer-motion"
-import { ChevronLeft, ChevronRight, Expand, X, Heart, Share2, Download } from "lucide-react"
-import Image from "next/image"
+import { useState, useRef, useEffect } from "react";
+import {
+  motion,
+  AnimatePresence,
+  useMotionValue,
+  useSpring,
+} from "framer-motion";
+import {
+  ChevronLeft,
+  ChevronRight,
+  Expand,
+  X,
+  Heart,
+  Share2,
+  Download,
+} from "lucide-react";
+import Image from "next/image";
 
 type GalleryImage = {
-  id: number
-  src: string
-  alt: string
-  category: string
-}
+  id: number;
+  src: string;
+  alt: string;
+  category: string;
+};
 
 const galleryImages: GalleryImage[] = [
   {
@@ -43,99 +56,107 @@ const galleryImages: GalleryImage[] = [
     alt: "Grupo de alabanza en el escenario",
     category: "Alabanza",
   },
+
   {
     id: 6,
-    src: "/placeholder.svg?height=600&width=800",
-    alt: "Bautismo en la iglesia",
-    category: "Sacramentos",
-  },
-  {
-    id: 7,
     src: "/placeholder.svg?height=600&width=800",
     alt: "Actividad con niños de la escuela dominical",
     category: "Niños",
   },
   {
-    id: 8,
+    id: 7,
     src: "/placeholder.svg?height=600&width=800",
     alt: "Evento especial de Navidad",
     category: "Eventos",
   },
   {
-    id: 9,
+    id: 8,
     src: "/placeholder.svg?height=600&width=800",
     alt: "Grupo de oración",
     category: "Oración",
   },
-]
+];
 
-const categories = Array.from(new Set(galleryImages.map((img) => img.category)))
+const categories = Array.from(
+  new Set(galleryImages.map((img) => img.category))
+);
 
 export default function PhotoGallery() {
-  const [selectedImage, setSelectedImage] = useState<GalleryImage | null>(null)
-  const [activeCategory, setActiveCategory] = useState<string>("Todos")
-  const [hoveredImage, setHoveredImage] = useState<number | null>(null)
-  const galleryRef = useRef<HTMLDivElement>(null)
-  const [isDragging, setIsDragging] = useState(false)
-  const dragX = useMotionValue(0)
-  const dragXSmooth = useSpring(dragX, { damping: 20, stiffness: 200 })
+  const [selectedImage, setSelectedImage] = useState<GalleryImage | null>(null);
+  const [activeCategory, setActiveCategory] = useState<string>("Todos");
+  const [hoveredImage, setHoveredImage] = useState<number | null>(null);
+  const galleryRef = useRef<HTMLDivElement>(null);
+  const [isDragging, setIsDragging] = useState(false);
+  const dragX = useMotionValue(0);
+  const dragXSmooth = useSpring(dragX, { damping: 20, stiffness: 200 });
 
   const filteredImages =
-    activeCategory === "Todos" ? galleryImages : galleryImages.filter((img) => img.category === activeCategory)
+    activeCategory === "Todos"
+      ? galleryImages
+      : galleryImages.filter((img) => img.category === activeCategory);
 
   const handleImageClick = (image: GalleryImage) => {
     if (!isDragging) {
-      setSelectedImage(image)
+      setSelectedImage(image);
     }
-  }
+  };
 
   const handleCloseModal = () => {
-    setSelectedImage(null)
-  }
+    setSelectedImage(null);
+  };
 
   const handleNextImage = () => {
-    if (!selectedImage) return
+    if (!selectedImage) return;
 
-    const currentIndex = filteredImages.findIndex((img) => img.id === selectedImage.id)
-    const nextIndex = (currentIndex + 1) % filteredImages.length
-    setSelectedImage(filteredImages[nextIndex])
-  }
+    const currentIndex = filteredImages.findIndex(
+      (img) => img.id === selectedImage.id
+    );
+    const nextIndex = (currentIndex + 1) % filteredImages.length;
+    setSelectedImage(filteredImages[nextIndex]);
+  };
 
   const handlePrevImage = () => {
-    if (!selectedImage) return
+    if (!selectedImage) return;
 
-    const currentIndex = filteredImages.findIndex((img) => img.id === selectedImage.id)
-    const prevIndex = (currentIndex - 1 + filteredImages.length) % filteredImages.length
-    setSelectedImage(filteredImages[prevIndex])
-  }
+    const currentIndex = filteredImages.findIndex(
+      (img) => img.id === selectedImage.id
+    );
+    const prevIndex =
+      (currentIndex - 1 + filteredImages.length) % filteredImages.length;
+    setSelectedImage(filteredImages[prevIndex]);
+  };
 
   const handleKeyDown = (e: KeyboardEvent) => {
     if (selectedImage) {
-      if (e.key === "ArrowRight") handleNextImage()
-      if (e.key === "ArrowLeft") handlePrevImage()
-      if (e.key === "Escape") handleCloseModal()
+      if (e.key === "ArrowRight") handleNextImage();
+      if (e.key === "ArrowLeft") handlePrevImage();
+      if (e.key === "Escape") handleCloseModal();
     }
-  }
+  };
 
   useEffect(() => {
-    window.addEventListener("keydown", handleKeyDown)
-    return () => window.removeEventListener("keydown", handleKeyDown)
-  }, [selectedImage])
+    window.addEventListener("keydown", handleKeyDown);
+    return () => window.removeEventListener("keydown", handleKeyDown);
+  }, [selectedImage]);
 
   return (
     <div className="w-full max-w-6xl mx-auto px-4 py-12">
       <div className="flex flex-col items-center mb-8">
-        <h2 className="text-3xl md:text-4xl font-bold text-white mb-6 text-center">Nuestra Galería</h2>
+        <h2 className="text-3xl md:text-4xl font-bold text-white mb-6 text-center">
+          Nuestra Galería
+        </h2>
         <p className="text-white/60 text-center max-w-2xl mb-8">
-          Explora los momentos más significativos de nuestra comunidad a través de estas imágenes que capturan la
-          esencia de nuestra fe y ministerio.
+          Explora los momentos más significativos de nuestra comunidad a través
+          de estas imágenes que capturan la esencia de nuestra fe y ministerio.
         </p>
 
         <div className="flex flex-wrap justify-center gap-2 mb-8">
           <button
             onClick={() => setActiveCategory("Todos")}
             className={`px-4 py-2 rounded-full text-sm font-medium transition-all duration-300 ${
-              activeCategory === "Todos" ? "bg-amber-500 text-white" : "bg-white/5 text-white/70 hover:bg-white/10"
+              activeCategory === "Todos"
+                ? "bg-amber-500 text-white"
+                : "bg-white/5 text-white/70 hover:bg-white/10"
             }`}
           >
             Todos
@@ -145,7 +166,9 @@ export default function PhotoGallery() {
               key={category}
               onClick={() => setActiveCategory(category)}
               className={`px-4 py-2 rounded-full text-sm font-medium transition-all duration-300 ${
-                activeCategory === category ? "bg-amber-500 text-white" : "bg-white/5 text-white/70 hover:bg-white/10"
+                activeCategory === category
+                  ? "bg-amber-500 text-white"
+                  : "bg-white/5 text-white/70 hover:bg-white/10"
               }`}
             >
               {category}
@@ -159,14 +182,17 @@ export default function PhotoGallery() {
         className="overflow-hidden"
         onPanStart={() => setIsDragging(true)}
         onPanEnd={() => {
-          setTimeout(() => setIsDragging(false), 100)
-          dragX.set(0)
+          setTimeout(() => setIsDragging(false), 100);
+          dragX.set(0);
         }}
         onPan={(_, info) => {
-          dragX.set(info.offset.x)
+          dragX.set(info.offset.x);
         }}
       >
-        <motion.div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4" style={{ x: dragXSmooth }}>
+        <motion.div
+          className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4"
+          style={{ x: dragXSmooth }}
+        >
           <AnimatePresence>
             {filteredImages.map((image) => (
               <motion.div
@@ -250,8 +276,12 @@ export default function PhotoGallery() {
                 </button>
               </div>
               <div className="bg-[#0a0a0f] p-4 rounded-b-xl">
-                <h3 className="text-white text-xl font-medium mb-2">{selectedImage.alt}</h3>
-                <p className="text-white/60 mb-4">Categoría: {selectedImage.category}</p>
+                <h3 className="text-white text-xl font-medium mb-2">
+                  {selectedImage.alt}
+                </h3>
+                <p className="text-white/60 mb-4">
+                  Categoría: {selectedImage.category}
+                </p>
                 <div className="flex justify-between">
                   <div className="flex gap-4">
                     <button className="flex items-center gap-2 text-white/70 hover:text-white transition-colors">
@@ -274,6 +304,5 @@ export default function PhotoGallery() {
         )}
       </AnimatePresence>
     </div>
-  )
+  );
 }
-
